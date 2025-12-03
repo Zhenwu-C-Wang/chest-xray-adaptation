@@ -1,0 +1,19 @@
+# 实验：临床分诊模拟（危急片等待时间）
+dataset:
+  metadata_csv: data/metadata/nih_metadata.csv  # 或合并后的多站点 metadata
+  pred_scores_csv: experiments/exp_external_nih/metrics.csv  # 含 score / label / site
+triage:
+  threshold: 0.5              # 初始分诊阈值，可在脚本中扫描最优阈值
+  priority_mode: score_desc   # 分数优先队列
+  radiologist_rate_per_hour: 60  # 每小时可读片数
+  urgent_label_value: 1       # 定义危急片标签
+simulation:
+  scenarios:
+    - name: fifo_baseline
+      strategy: fifo
+    - name: score_triage
+      strategy: score_priority
+    - name: score_triage_calibrated
+      strategy: score_priority_calibrated
+output:
+  exp_dir: experiments/exp_clinical_triage

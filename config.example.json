@@ -1,0 +1,44 @@
+{
+  "device": "cuda",
+  "batch_size": 32,
+  "num_workers": 4,
+  "datasets": {
+    "nih": {
+      "enabled": false,
+      "image_dir": "data/nih_chestxray14/images",
+      "labels_csv": "data/nih_chestxray14/Data_Entry_2017.csv"
+    },
+    "chexpert": {
+      "enabled": true,
+      "csv_path": "data/chexpert/CheXpert-v1.0-small/train.csv",
+      "image_root": "data/chexpert/CheXpert-v1.0-small"
+    },
+    "mimic": {
+      "enabled": false,
+      "csv_path": "data/mimic_cxr/mimic-cxr-2.0.0-chexpert.csv",
+      "image_root": "data/mimic_cxr"
+    }
+  },
+  "model": {
+    "architecture": "resnet50",
+    "pretrained": true,
+    "num_classes": 14
+  },
+  "validation": {
+    "test_split": 0.2,
+    "val_split": 0.1,
+    "seed": 42
+  },
+  "calibration": {
+    "method": "temperature",
+    "n_bins": 10,
+    "learning_rate": 0.01,
+    "max_iterations": 1000
+  },
+  "output": {
+    "report_dir": "reports",
+    "metrics_file": "site_metrics.csv",
+    "report_file": "external_validation_report.md",
+    "one_pager_file": "clinical_impact_one_pager.md"
+  }
+}

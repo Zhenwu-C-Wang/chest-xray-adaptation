@@ -1,0 +1,19 @@
+# 实验：校准（温度缩放 / 等距回归）
+dataset:
+  name: calibration_internal
+  metadata_csv: data/metadata/internal_dev.csv
+  split_file: data/splits/internal_dev.json  # 使用 val split 拟合校准器
+  batch_size: 64
+  num_workers: 4
+model:
+  checkpoint: experiments/exp_internal_baseline/best_model.pth
+  arch: resnet18
+  num_classes: 2
+calibration:
+  methods: [temperature, isotonic]
+  n_bins: 10
+evaluation:
+  targets: [internal_dev_val, nih_external, chexpert_external]  # 需在脚本中解析
+  metrics: [ece, brier, auroc]
+output:
+  exp_dir: experiments/exp_calibration

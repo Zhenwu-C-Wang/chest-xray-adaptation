@@ -1,0 +1,21 @@
+# 实验：内部开发集训练 + 验证（论文 Baseline）
+dataset:
+  name: internal_dev
+  metadata_csv: data/metadata/internal_dev.csv  # 包含 path,label,site_id,device,split
+  split_file: data/splits/internal_dev.json
+  batch_size: 32
+  num_workers: 4
+model:
+  arch: resnet18
+  pretrained: true
+  num_classes: 2
+training:
+  num_epochs: 20
+  learning_rate: 0.001
+  weight_decay: 1e-5
+  val_split: 0.1
+  seed: 42
+evaluation:
+  metrics: [accuracy, auroc, auprc, ece]
+output:
+  exp_dir: experiments/exp_internal_baseline

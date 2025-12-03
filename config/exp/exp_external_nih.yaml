@@ -1,0 +1,16 @@
+# 实验：外部站点 NIH 验证
+dataset:
+  name: nih_external
+  metadata_csv: data/metadata/nih_metadata.csv
+  split_file: data/splits/nih_external.json  # 固定的 external test 列表
+  batch_size: 64
+  num_workers: 4
+model:
+  checkpoint: experiments/exp_internal_baseline/best_model.pth
+  arch: resnet18
+  num_classes: 2
+evaluation:
+  metrics: [accuracy, auroc, auprc, ece, brier]
+  group_by: [site_id, device_model]
+output:
+  exp_dir: experiments/exp_external_nih
